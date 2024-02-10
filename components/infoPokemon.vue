@@ -7,14 +7,15 @@
                 </div>
                 <div class="flex flex-col text-center justify-center items-center">
                     <div class="mb-4">
-                    <p class="text-2xl font-black lg:text-4xl tracking-wide">{{ pokemon.name }}</p>
+                        <p class="text-lg tracking-tighter lg: text-xl"> #{{ pokemon.id }} </p>
+                        <p class="text-2xl font-black lg:text-4xl tracking-wide subpixel-antialiased"> {{ pokemon.name }}</p>
                     </div>
                     <div v-for="typePokemon in pokemon.type" class="lg:h-8 lg:w-32 shadow rounded-xl h-7 w-24 mb-2 flex items-center justify-center" :class="getTypeColor(typePokemon.type.name)">
                         <p class="text-white font-semibold lg:text-lg">{{ typePokemon.type.name }}</p>
                     </div>
                 </div>
             </div>
-            <div class="my-4">
+            <div class="my-2">
                 <div class="w-full flex justify-center"> <h2 class="text-xl lg:text-xl font-semibold">Abilities</h2> </div>
                 <div class="w-full flex flex-wrap justify-center gap-x-5"> <p class="lg:text-lg text-center" v-for="ability in pokemon.abilities"> {{ ability.ability.name }} </p> </div>  
             </div>
@@ -25,7 +26,7 @@
                         <p class="font-semibold text-lg lg:text-xl">{{ statName[stat.stat.name] }} </p>
                     </div>
                     <div>
-                        <div :style="{ width: (stat.base_stat)*1.5 + 'px' }"  class="h-auto lg:h-7 max-w-[240px] min-w-[40px] flex justify-end rounded rounded-r-lg" :class="getTypeColor(pokemon.type[0].type.name)">
+                        <div :style="{ width: (stat.base_stat)*1.5 + 'px' }"  class="statBar h-auto lg:h-7 max-w-[240px] min-w-[40px] flex justify-end rounded rounded-r-lg" :class="getTypeColor(pokemon.type[0].type.name)">
                             <p class="text-white mr-2 text-sm lg:text-lg">{{ stat.base_stat }}</p>
                         </div>
                     </div>
@@ -136,3 +137,16 @@ function destravarScroll(){
     window.onscroll=function(){};
 }
 </script>
+
+
+<style>
+.statBar{
+    animation: statBarAnimation 0.7s;
+}
+
+@keyframes statBarAnimation {
+    0%{
+        width: 0px;
+    }
+}
+</style>
