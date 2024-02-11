@@ -51,6 +51,8 @@ function closeModal() {
   destravarScroll()
 }
 
+
+
 const getTypeColor = (type) =>{
     switch(type.toLowerCase()){
         case 'water':

@@ -1,7 +1,7 @@
 <template>
   <infoPokemon v-if="isOpen" @modalStatus="isOpen = false" :pokemon="pokemonSelecionado"/>
-  <div class="flex flex-col items-center bg-[#fcfcfc] h-auto min-h-screen" :class="{'travarScroll' : isOpen}">
-    <div class="flex justify-center items-center w-full h-[50px] bg-[#fff] shadow-md sticky top-0" :class="{hidden : isOpen}">
+  <div class="flex flex-col items-center bg-[#f5f5f5] h-auto min-h-screen" :class="{'travarScroll' : isOpen}">
+    <div class="flex justify-center items-center w-full h-[50px] bg-[#ffffff] shadow-md sticky top-0" :class="{hidden : isOpen}">
       <img src="https://cdn.icon-icons.com/icons2/2248/PNG/512/pokeball_icon_136305.png" class=" w-10 h-10" :class="{hidden : isOpen}">
     </div>
     <div class="w-full max-w-[1000px] flex flex-col items-center">
@@ -70,8 +70,8 @@ let hoverTypeColors = {
   electric: 'hover:bg-[#d6b83e]',
   ice: 'hover:bg-[#7cc6cf]',
   dragon: 'hover:bg-[#426c96]',
-  rock: 'hover:bg-[#ab973f]',
-  ground: 'hover:bg-[#a8873e]'
+  rock: 'hover:bg-[#8a7d48]',
+  ground: 'hover:bg-[#d48e50]'
 };
 
 const isOpen = ref(false)
