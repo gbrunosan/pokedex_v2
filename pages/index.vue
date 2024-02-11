@@ -11,11 +11,11 @@
       </div>
       <div class="flex justify-center items-center">
         <div class="flex flex-wrap justify-center h-auto min-h-full text-white gap-3">
-          <div v-if="pesquisa === ''"  v-for="(pokemon, i) in pokemons" :key="i" @click="openModal(pokemon)" :class="pokemon.color, pokemon.hover" class="flex justify-center items-center flex-col rounded-lg min-h-[220px] h-auto w-[150px] md:w-[190px] md:min-h-[200px] shadow p-2">
+          <div v-if="pesquisa === ''"  v-for="(pokemon, i) in pokemons" :key="i" @click="abrirModal(pokemon)" :class="pokemon.color, pokemon.hover" class="flex justify-center items-center flex-col rounded-lg min-h-[220px] h-auto w-[150px] md:w-[190px] md:min-h-[200px] shadow p-2">
               <img :src="pokemon.image" class="max-w-[120px] sm:max-w-[150px] md:max-w-[120px]"> 
               <p class="text-lg lg:text-xl text-black text-center">#{{ pokemon.id }} {{ pokemon.name }}</p>
             </div>
-          <div v-if="pesquisa !== ''" v-for="(pokemon, i) in filtroPokemon" :key="i" @click="openModal(pokemon)" :class="pokemon.color, pokemon.hover" class="flex justify-center items-center flex-col rounded-lg min-h-[220px] h-auto w-[150px] md:w-[190px] md:min-h-[200px] shadow p-2">
+          <div v-if="pesquisa !== ''" v-for="(pokemon, i) in filtroPokemon" :key="i" @click="abrirModal(pokemon)" :class="pokemon.color, pokemon.hover" class="flex justify-center items-center flex-col rounded-lg min-h-[220px] h-auto w-[150px] md:w-[190px] md:min-h-[200px] shadow p-2">
             <img :src="pokemon.image" class="max-w-[120px] sm:max-w-[150px] md:max-w-[120px]">
             <p class="text-lg lg:text-xl text-black text-center">#{{ pokemon.id }} {{ pokemon.name }}</p>    
           </div>
@@ -31,7 +31,7 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import axios from 'axios';
 
 
-let loadInterval
+let intervaloCarregamento
 let typeColors = {
   water: 'bg-[#c0e2fc]',
   fire: 'bg-[#e3b99f]',
@@ -46,6 +46,7 @@ let typeColors = {
   bug: 'bg-[#c8ebb7]',
   fairy: 'bg-[#f7cbe7]',
   steel: 'bg-[#c5c5db]',
+  
   electric: 'bg-[#f0e3b1]',
   ice: 'bg-[#d5f1f5]',
   dragon: 'bg-[#c1c9e0]',
@@ -83,13 +84,13 @@ const pokemonSelecionado = ref('')
 const carregarPokemons = async (offset, limit) => {
   try {
     const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
-    const loadedPokemon = pokemonResponse.data.results;
+    const pokemonCarregados = pokemonResponse.data.results;
 
-    for (const pokemon of loadedPokemon) {
+    for (const pokemon of pokemonCarregados) {
       const response = await axios.get(pokemon.url);
       const newPokemon = {
         id: response.data.id,
-        name: formatName(response.data.name),
+        name: formatarNome(response.data.name),
         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${response.data.id}.png`,
         gif: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${response.data.id}.gif`,
         type: response.data.types,
@@ -107,13 +108,13 @@ const carregarPokemons = async (offset, limit) => {
 };
 
 
-const formatName = (str) => {
+const formatarNome = (str) => {
   str = str.replace(/-/g, ' ');
   return str.replace(/\b\w/g, match => match.toUpperCase());
 }
 
 const carregarOutrosPokemon = () => {
-    loadInterval = setInterval(async () => {
+    intervaloCarregamento = setInterval(async () => {
       const offset = pokemons.value.length;
       await carregarPokemons(offset, 50);
     }, 2000);
@@ -124,7 +125,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  clearInterval(loadInterval);
+  clearInterval(intervaloCarregamento);
 });
 
 const filtroPokemon = computed(() => {
@@ -133,13 +134,13 @@ const filtroPokemon = computed(() => {
   );
 });
 
-function openModal(pokemon) {
+function abrirModal(pokemon) {
   pokemon = JSON.parse(JSON.stringify(pokemon))
   for (let type of pokemon.type){  
-    type.type.name = formatName(type.type.name)
+    type.type.name = formatarNome(type.type.name)
   } 
   for (let ability of pokemon.abilities){  
-    ability.ability.name = formatName(ability.ability.name)
+    ability.ability.name = formatarNome(ability.ability.name)
   } 
   pokemonSelecionado.value = pokemon
   isOpen.value = true
