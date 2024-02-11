@@ -34,45 +34,44 @@ import axios from 'axios';
 let intervaloCarregamento
 let typeColors = {
   water: 'bg-[#c0e2fc]',
-  fire: 'bg-[#e3b99f]',
+  fire: 'bg-[#eba281]',
   grass: 'bg-[#9bf2a5]',
   flying: 'bg-[#cbe1f2]',
   poison: 'bg-[#e0b3e8]',
-  normal: 'bg-[#eddfab]',
+  normal: 'bg-[#e0d1b8]',
   fighting: 'bg-[#e3b1b1]',
   psychic: 'bg-[#f5b0cd]',
   ghost: 'bg-[#ac9ab5]',
   dark: 'bg-[#ada0a0]',
-  bug: 'bg-[#c8ebb7]',
+  bug: 'bg-[#dbf0a1]',
   fairy: 'bg-[#f7cbe7]',
   steel: 'bg-[#c5c5db]',
-  
-  electric: 'bg-[#f0e3b1]',
+  electric: 'bg-[#f7eeb0]',
   ice: 'bg-[#d5f1f5]',
   dragon: 'bg-[#c1c9e0]',
   rock: 'bg-[#bfb8ae]',
-  ground: 'bg-[#eddac5]'
+  ground: 'bg-[#cca189]'
 };
 
 let hoverTypeColors = {
-  water: 'hover:bg-[#44a1eb]',
-  fire: 'hover:bg-[#de7735]',
-  grass: 'hover:bg-[#34c73e]',
-  flying: 'hover:bg-[#709ec2]',
-  poison: 'hover:bg-[#c159d4]',
-  normal: 'hover:bg-[#b5ae6d]',
-  fighting: 'hover:bg-[#c95757]',
-  psychic: 'hover:bg-[#e04887]',
-  ghost: 'hover:bg-[#8e69bf]',
-  dark: 'hover:bg-[#806161]',
-  bug: 'hover:bg-[#a4cf4e]',
-  fairy: 'hover:bg-[#e079bb]',
-  steel: 'hover:bg-[#9a9ae6]',
-  electric: 'hover:bg-[#d6b83e]',
-  ice: 'hover:bg-[#7cc6cf]',
-  dragon: 'hover:bg-[#426c96]',
-  rock: 'hover:bg-[#8a7d48]',
-  ground: 'hover:bg-[#d48e50]'
+  water: 'hover:bg-[#7abcf0]',
+  fire: 'hover:bg-[#e07e53]',
+  grass: 'hover:bg-[#68d46f]',
+  flying: 'hover:bg-[#7babd1]',
+  poison: 'hover:bg-[#da8be8]',
+  normal: 'hover:bg-[#c9c385]',
+  fighting: 'hover:bg-[#d68b8b]',
+  psychic: 'hover:bg-[#c77396]',
+  ghost: 'hover:bg-[#9a83c9]',
+  dark: 'hover:bg-[#806b6b]',
+  bug: 'hover:bg-[#bbd479]',
+  fairy: 'hover:bg-[#e396c8]',
+  steel: 'hover:bg-[#9d9dd1]',
+  electric: 'hover:bg-[#d6be5a]',
+  ice: 'hover:bg-[#88d2db]',
+  dragon: 'hover:bg-[#567da3]',
+  rock: 'hover:bg-[#857c59]',
+  ground: 'hover:bg-[#a67d5a]'
 };
 
 const isOpen = ref(false)
