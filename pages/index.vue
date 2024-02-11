@@ -33,24 +33,24 @@ import axios from 'axios';
 
 let loadInterval
 let typeColors = {
-  water: 'bg-[#84c3f5]',
-  fire: 'bg-[#ffa66e]',
-  grass: 'bg-[#7af583]',
-  flying: 'bg-[#c1d7e8]',
-  poison: 'bg-[#ed97fc]',
-  normal: 'bg-[#e8e19e]',
-  fighting: 'bg-[#faa0a0]',
-  psychic: 'bg-[#ff8abb]',
-  ghost: 'bg-[#9584ab]',
-  dark: 'bg-[#9e9e9e]',
-  bug: 'bg-[#acf772]',
-  fairy: 'bg-[#f5abda]',
-  steel: 'bg-[#d3d3f5]',
-  electric: 'bg-[#ffe373]',
-  ice: 'bg-[#d2f3f7]',
-  dragon: 'bg-[#9bb2c9]',
-  rock: 'bg-[#bdb17b]',
-  ground: 'bg-[#e3c47f]'
+  water: 'bg-[#c0e2fc]',
+  fire: 'bg-[#e3b99f]',
+  grass: 'bg-[#9bf2a5]',
+  flying: 'bg-[#cbe1f2]',
+  poison: 'bg-[#e0b3e8]',
+  normal: 'bg-[#eddfab]',
+  fighting: 'bg-[#e3b1b1]',
+  psychic: 'bg-[#f5b0cd]',
+  ghost: 'bg-[#ac9ab5]',
+  dark: 'bg-[#ada0a0]',
+  bug: 'bg-[#c8ebb7]',
+  fairy: 'bg-[#f7cbe7]',
+  steel: 'bg-[#c5c5db]',
+  electric: 'bg-[#f0e3b1]',
+  ice: 'bg-[#d5f1f5]',
+  dragon: 'bg-[#c1c9e0]',
+  rock: 'bg-[#bfb8ae]',
+  ground: 'bg-[#eddac5]'
 };
 
 let hoverTypeColors = {
