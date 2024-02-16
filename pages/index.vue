@@ -1,17 +1,21 @@
 <template>
   <infoPokemon v-if="isOpen" @modalStatus="isOpen = false" :pokemon="pokemonSelecionado"/>
-  <div class="flex flex-col items-center bg-[#f5f5f5] h-auto min-h-screen" :class="{'travarScroll' : isOpen}">
-    <div class="flex justify-center items-center w-full h-[50px] bg-[#ffffff] shadow-md sticky top-0" :class="{hidden : isOpen}">
+
+  
+  <div class="flex flex-col items-center bg-[#f0f0f0] h-auto min-h-screen" :class="{'travarScroll' : isOpen}">
+    <div class="flex justify-center items-center w-full h-[50px] bg-[#f7f7f7] shadow-md sticky top-0" :class="{hidden : isOpen}">
       <img src="https://cdn.icon-icons.com/icons2/2248/PNG/512/pokeball_icon_136305.png" class=" w-10 h-10" :class="{hidden : isOpen}">
     </div>
-    <div class="w-full max-w-[1000px] flex flex-col items-center">
-
-      <div class="flex justify-center items-center m-4 h-auto w-full sticky top-2" >
+    <div v-if="isLoading" class="flex h-screen justify-center items-center">
+          <div  class="flex justify-center items-center animate-spin border-t-2 border-blue-700 border-solid rounded-full w-16 h-16"></div>
+      </div>
+    <div class="w-full max-w-[1000px] flex flex-col items-center" v-if="!isLoading">
+      <div class="flex justify-center items-center m-4 h-auto w-full sticky top-1" >
         <input type="text" placeholder="Pesquisar Pokémon" class="w-[80%] text-center rounded-lg p-2 shadow" :class="{hidden : isOpen}" v-model="pesquisa"/>
       </div>
       <div class="flex justify-center items-center">
-        <div class="flex flex-wrap justify-center h-auto min-h-full text-white gap-3">
-          <div v-if="pesquisa === ''"  v-for="(pokemon, i) in pokemons" :key="i" @click="abrirModal(pokemon)" :class="pokemon.color, pokemon.hover" class="flex justify-center items-center flex-col rounded-lg min-h-[220px] h-auto w-[150px] md:w-[190px] md:min-h-[200px] shadow p-2">
+        <div class="flex flex-wrap justify-center h-auto min-h-full gap-3">
+          <div  v-if="pesquisa === ''"  v-for="(pokemon, i) in pokemons" :key="i" @click="abrirModal(pokemon)" :class="pokemon.color, pokemon.hover" class="flex justify-center items-center flex-col rounded-lg min-h-[220px] h-auto w-[150px] md:w-[190px] md:min-h-[200px] shadow p-2">
               <img :src="pokemon.image" class="max-w-[120px] sm:max-w-[150px] md:max-w-[120px]"> 
               <p class="text-lg lg:text-xl text-black text-center">#{{ pokemon.id }} {{ pokemon.name }}</p>
             </div>
@@ -34,7 +38,7 @@ import axios from 'axios';
 let intervaloCarregamento
 let typeColors = {
   water: 'bg-[#c0e2fc]',
-  fire: 'bg-[#eba281]',
+  fire: 'bg-[#ffb778]',
   grass: 'bg-[#9bf2a5]',
   flying: 'bg-[#cbe1f2]',
   poison: 'bg-[#e0b3e8]',
@@ -49,8 +53,8 @@ let typeColors = {
   electric: 'bg-[#f7eeb0]',
   ice: 'bg-[#d5f1f5]',
   dragon: 'bg-[#c1c9e0]',
-  rock: 'bg-[#bfb8ae]',
-  ground: 'bg-[#cca189]'
+  rock: 'bg-[#dbc19c]',
+  ground: 'bg-[#e3bd8a]'
 };
 
 let hoverTypeColors = {
@@ -61,7 +65,7 @@ let hoverTypeColors = {
   poison: 'hover:bg-[#da8be8]',
   normal: 'hover:bg-[#c9c385]',
   fighting: 'hover:bg-[#d68b8b]',
-  psychic: 'hover:bg-[#c77396]',
+  psychic: 'hover:bg-[#db86a9]',
   ghost: 'hover:bg-[#9a83c9]',
   dark: 'hover:bg-[#806b6b]',
   bug: 'hover:bg-[#bbd479]',
@@ -70,14 +74,16 @@ let hoverTypeColors = {
   electric: 'hover:bg-[#d6be5a]',
   ice: 'hover:bg-[#88d2db]',
   dragon: 'hover:bg-[#567da3]',
-  rock: 'hover:bg-[#857c59]',
-  ground: 'hover:bg-[#a67d5a]'
+  rock: 'hover:bg-[#bdae75]',
+  ground: 'hover:bg-[#c49352]'
 };
 
 const isOpen = ref(false)
 const pokemons = ref([]);
 const pesquisa = ref('');
 const pokemonSelecionado = ref('')
+const isLoading = ref(true);
+
 
 
 const carregarPokemons = async (offset, limit) => {
@@ -103,6 +109,10 @@ const carregarPokemons = async (offset, limit) => {
     }
   } catch (error) {
     console.error('Erro ao carregar Pokémon:', error.message);
+  } finally {
+      setTimeout(() => {
+      isLoading.value = false;
+    }, 150);
   }
 };
 
@@ -116,7 +126,7 @@ const carregarOutrosPokemon = () => {
     intervaloCarregamento = setInterval(async () => {
       const offset = pokemons.value.length;
       await carregarPokemons(offset, 50);
-    }, 2000);
+    }, 1800);
   };
 
 onMounted(() => {
@@ -152,8 +162,3 @@ function travarScroll(){
     window.onscroll=function(){window.scrollTo(x, y);};
 }
 </script>
-
-<style>
-  
-</style>
-
