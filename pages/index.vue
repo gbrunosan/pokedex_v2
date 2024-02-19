@@ -3,8 +3,8 @@
 
   
   <div class="flex flex-col items-center bg-[#f0f0f0] h-auto min-h-screen" :class="{'travarScroll' : isOpen}">
-    <div class="flex justify-center items-center w-full h-[50px] bg-[#f7f7f7] shadow-md sticky top-0" :class="{hidden : isOpen}">
-      <img src="https://cdn.icon-icons.com/icons2/2248/PNG/512/pokeball_icon_136305.png" class=" w-10 h-10" :class="{hidden : isOpen}">
+    <div class="flex justify-center items-center w-full max-h-[50px] bg-[#f7f7f7] shadow-md sticky top-0" :class="{hidden : isOpen}">
+      <img src="https://cdn.icon-icons.com/icons2/2248/PNG/512/pokeball_icon_136305.png" class=" max-w-10 max-h-10" :class="{hidden : isOpen}">
     </div>
     <div v-if="isLoading" class="flex h-screen justify-center items-center">
           <div  class="flex justify-center items-center animate-spin border-t-2 border-blue-700 border-solid rounded-full w-16 h-16"></div>
