@@ -1,13 +1,12 @@
 <template>
   <infoPokemon v-if="isOpen" @modalStatus="isOpen = false" :pokemon="pokemonSelecionado"/>
-
-  
   <div class="flex flex-col items-center bg-[#f0f0f0] h-auto min-h-screen" :class="{'travarScroll' : isOpen}">
     <div class="flex justify-center items-center w-full h-[50px] max-h-[50px] bg-[#f7f7f7] shadow-md sticky top-0" :class="{hidden : isOpen}">
       <img src="https://cdn.icon-icons.com/icons2/2248/PNG/512/pokeball_icon_136305.png" class=" max-w-10 max-h-10" :class="{hidden : isOpen}">
     </div>
-    <div v-if="isLoading" class="flex h-screen justify-center items-center">
+    <div v-if="isLoading" class="flex h-screen justify-center items-center flex-col">
           <div  class="flex justify-center items-center animate-spin border-t-2 border-blue-700 border-solid rounded-full w-16 h-16"></div>
+          <div>{{ carregar }} %</div>
     </div>
     <div class="w-full max-w-[1000px] flex flex-col items-center" v-show="!isLoading">
       <div class="flex justify-center items-center m-4 h-auto w-full sticky top-1" >
@@ -24,7 +23,6 @@
             <img :src="pokemon.image" class="max-w-[120px] sm:max-w-[150px] md:max-w-[120px]">
             <p class="text-lg lg:text-xl text-black text-center">#{{ pokemon.id }} {{ pokemon.name }}</p>    
           </div>
-
 
         </div>
       </div>
@@ -48,11 +46,12 @@ const isOpen = ref(false)
 const searchedPokemon = ref([])
 const pesquisa = ref('')
 const pokemonSelecionado = ref('')
-const isLoading = ref(false)
+const isLoading = ref(true)
 const target = ref(null)
 const isVisible = ref(false)
-
 const limit = ref(0)
+const carregar = ref(0)
+const intervalo = ref (null)
 
 const options = {
   threshold: 0,
@@ -64,11 +63,26 @@ const formatarNome = (str) => {
   return str.replace(/\b\w/g, match => match.toUpperCase());
 }
 
+
 onMounted(() => {
     const observer = new IntersectionObserver(handleIntersection, options)
     observer.observe(target.value)
     filtrarPokemon()
-  });
+    carregamento()
+});
+
+function carregamento (){
+  intervalo.value = setInterval(loading, 50)
+}
+
+function loading(){
+  carregar.value += 1
+  if (carregar.value >= 100){
+    isLoading.value = false
+    clearInterval(intervalo.value)
+  }
+}
+
 
   async function filtrarPokemon (){
   try {
@@ -109,8 +123,6 @@ const handleIntersection = (entries) => {
     }
   })
 }
-
-
 
 const filtroPokemon = computed(() => {
   return searchedPokemon.value.filter((pokemon) =>
